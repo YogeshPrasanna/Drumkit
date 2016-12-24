@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Drum Kit | Javascript</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Thambi" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+       <i class="fa fa-headphones" aria-hidden="true" style="color:#FF31DF"></i> Drumkit <i class="fa fa-headphones" aria-hidden="true" style="color:#E60101"></i>
+    </div>
+    <div class="keyboard">
+        <div data-key="65" class="key">
+            <kbd>A</kbd><span class="sound">Boom</div>
+        <div data-key="83" class="key"><kbd>S</kbd><span class="sound">Clap</div>
+        <div data-key="68" class="key"><kbd>D</kbd><span class="sound">Hithat</div>
+        <div data-key="70" class="key"><kbd>F</kbd><span class="sound">Kick</div>
+        <div data-key="71" class="key"><kbd>G</kbd><span class="sound">Openhat</div>
+        <div data-key="72" class="key"><kbd>H</kbd><span class="sound">Ride</div>
+        <div data-key="74" class="key"><kbd>J</kbd><span class="sound">Snare</div>
+        <div data-key="75" class="key"><kbd>K</kbd><span class="sound">Tink</div>
+        <div data-key="76" class="key"><kbd>L</kbd><span class="sound">Tom</div>
+    </div>
+    <audio src="./sounds/boom.wav" data-key="65"></audio>
+    <audio src="./sounds/clap.wav" data-key="83"></audio>
+    <audio src="./sounds/hihat.wav" data-key="68"></audio>
+    <audio src="./sounds/kick.wav" data-key="70"></audio>
+    <audio src="./sounds/openhat.wav" data-key="71"></audio>
+    <audio src="./sounds/ride.wav" data-key="72"></audio>
+    <audio src="./sounds/snare.wav" data-key="74"></audio>
+    <audio src="./sounds/tink.wav" data-key="75"></audio>
+    <audio src="./sounds/tom.wav" data-key="76"></audio>
+
+    <!-- footer -->
+<div class="footer">
+   <div style="float:left"><i class="fa fa-copyright" aria-hidden="true"></i> Yogesh Prasanna</div>
+   <div id="contact" class="footer-contact" style="float:right;padding-right:15px"> <span style="color: #FFDD00">contact | </span> <i class="fa fa-facebook" aria-hidden="true" style="color:#4867AA"></i> <a href="https://www.facebook.com/yogeshp.letsrock" target="_blank" style="color: #ED9095; text-decoration: none;">Facebook</a> | <i class="fa fa-twitter" aria-hidden="true" style="color:#1DA1F2"></i> <a href="https://twitter.com/yogeshpletsrock" target="_blank" style="color: #ED9095; text-decoration: none;"> Twitter </a> | <i class="fa fa-instagram" aria-hidden="true" style="color:pink"></i> <a href="https://www.instagram.com/yogeshprasanna/" target="_blank" style="color: #ED9095; text-decoration: none;"> Instagram </a> </div>
+    </div>
+
+
+    <script type="text/javascript">
+    function playsound(e) {
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+        if (!audio) return;
+        audio.currentTime = 0;
+        audio.play();
+        key.classList.add('playing');
+    }
+
+    function removetransition(e) {
+        if (e.propertyName !== 'transform') return;
+        this.classList.remove('playing');
+    };
+
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => key.addEventListener('transitionend', removetransition));
+
+    window.addEventListener('keydown', playsound);
+    </script>
+</body>
+
+</html>
